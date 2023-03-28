@@ -1,0 +1,10 @@
+# syntax = docker/dockerfile:1.0-experimental
+FROM golang:1.20 AS build
+WORKDIR /app
+COPY . .
+RUN CGO_ENABLED=0 go build -mod vendor -ldflags '-w -s' -o /app/prog -v ./cmd/main.go
+
+FROM alpine:3.17
+WORKDIR /app
+COPY --from=build /app/prog .
+ENTRYPOINT ["/app/prog"]

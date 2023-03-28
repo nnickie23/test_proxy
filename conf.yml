@@ -1,0 +1,14 @@
+app:
+  mode: "dev"
+  debug: false
+  log_level: "warn"
+
+http:
+  addr: ":8000"
+
+postgres:
+  driver_name: "pgx"
+  # test task through command line:
+  # data_source_name: "postgres://postgres:postgres@localhost:5432/task"
+  # test task in container:
+  data_source_name: "postgres://postgres:postgres@db:5432/task"

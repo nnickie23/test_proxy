@@ -1,0 +1,11 @@
+debug: false
+testing: false # uses test api
+app_mode: dev
+log_level: "warn"
+http_listen: ":8000"
+pg:
+  driver_name: "pgx"
+  # test task through command line:
+  # data_source_name: "postgres://postgres:postgres@localhost:5432/task"
+  # test task in container:
+  data_source_name: "postgres://postgres:postgres@db:5432/task"

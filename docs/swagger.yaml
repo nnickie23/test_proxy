@@ -1,0 +1,119 @@
+basePath: /
+definitions:
+  entities.Headers:
+    additionalProperties:
+      type: string
+    type: object
+  entities.ResultEntity:
+    properties:
+      headers:
+        $ref: "#/definitions/entities.Headers"
+      httpStatusCode:
+        type: integer
+      id:
+        type: string
+      length:
+        type: string
+      status:
+        type: string
+    type: object
+  entities.TaskCreateRequest:
+    properties:
+      headers:
+        $ref: "#/definitions/entities.Headers"
+      method:
+        type: string
+      url:
+        type: string
+    type: object
+  handler.ErrRespSt:
+    properties:
+      error_code:
+        type: string
+    type: object
+host: localhost:8000
+info:
+  contact: {}
+  description: Requestor API application
+  title: TestTask
+  version: "1.0"
+paths:
+  /task:
+    post:
+      consumes:
+        - application/json
+      description: Create task
+      operationId: task
+      parameters:
+        - description: create task
+          in: body
+          name: request
+          required: true
+          schema:
+            $ref: "#/definitions/entities.TaskCreateRequest"
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: task ID
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/handler.ErrRespSt"
+        "404":
+          description: Not Found
+          schema:
+            $ref: "#/definitions/handler.ErrRespSt"
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: "#/definitions/handler.ErrRespSt"
+        default:
+          description: ""
+          schema:
+            $ref: "#/definitions/handler.ErrRespSt"
+      summary: Create Task
+      tags:
+        - task
+  /task/{taskID}:
+    get:
+      description: Get task status
+      operationId: task status
+      parameters:
+        - description: task ID
+          in: path
+          name: taskID
+          required: true
+          type: string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: task result
+          schema:
+            $ref: "#/definitions/entities.ResultEntity"
+        "400":
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/handler.ErrRespSt"
+        "404":
+          description: Not Found
+          schema:
+            $ref: "#/definitions/handler.ErrRespSt"
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: "#/definitions/handler.ErrRespSt"
+        default:
+          description: ""
+          schema:
+            $ref: "#/definitions/handler.ErrRespSt"
+      summary: Get task status
+      tags:
+        - task
+schemes:
+  - http
+  - https
+swagger: "2.0"

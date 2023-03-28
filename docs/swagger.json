@@ -1,0 +1,167 @@
+{
+  "schemes": ["http", "https"],
+  "swagger": "2.0",
+  "info": {
+    "description": "Requestor API application",
+    "title": "TestTask",
+    "contact": {},
+    "version": "1.0"
+  },
+  "host": "localhost:8000",
+  "basePath": "/",
+  "paths": {
+    "/task": {
+      "post": {
+        "description": "Create task",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["task"],
+        "summary": "Create Task",
+        "operationId": "task",
+        "parameters": [
+          {
+            "description": "create task",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/entities.TaskCreateRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "task ID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/handler.ErrRespSt"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/handler.ErrRespSt"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/handler.ErrRespSt"
+            }
+          },
+          "default": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/handler.ErrRespSt"
+            }
+          }
+        }
+      }
+    },
+    "/task/{taskID}": {
+      "get": {
+        "description": "Get task status",
+        "produces": ["application/json"],
+        "tags": ["task"],
+        "summary": "Get task status",
+        "operationId": "task status",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "task ID",
+            "name": "taskID",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "task result",
+            "schema": {
+              "$ref": "#/definitions/entities.ResultEntity"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/handler.ErrRespSt"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/handler.ErrRespSt"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/handler.ErrRespSt"
+            }
+          },
+          "default": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/handler.ErrRespSt"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "entities.Headers": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "entities.ResultEntity": {
+      "type": "object",
+      "properties": {
+        "headers": {
+          "$ref": "#/definitions/entities.Headers"
+        },
+        "httpStatusCode": {
+          "type": "integer"
+        },
+        "id": {
+          "type": "string"
+        },
+        "length": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        }
+      }
+    },
+    "entities.TaskCreateRequest": {
+      "type": "object",
+      "properties": {
+        "headers": {
+          "$ref": "#/definitions/entities.Headers"
+        },
+        "method": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        }
+      }
+    },
+    "handler.ErrRespSt": {
+      "type": "object",
+      "properties": {
+        "error_code": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

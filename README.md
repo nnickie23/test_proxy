@@ -56,8 +56,6 @@ Response:
 - [pgx](https://github.com/jackc/pgx) - PostgreSQL driver and toolkit for Go
 - [zap](https://github.com/uber-go/zap) - Logger
 - [migrate](https://github.com/golang-migrate/migrate) - Database migrations. CLI and Golang library.
-- [testify](https://github.com/stretchr/testify) - Testing toolkit
-- [gomock](https://github.com/golang/mock) - Mocking framework
 - [Docker](https://www.docker.com/) - Docker
 
 ## Running
